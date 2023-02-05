@@ -11,7 +11,7 @@ WIN = pygame.display.set_mode((WIDTH,HEIGHT)) #setting bounds of game window
 pygame.display.set_caption("Groots in Paris ") #name of the game
 
 FPS = 30
-BORDER = pygame.Rect(WIDTH, HEIGHT)
+#BORDER = pygame.Rect(WIDTH, HEIGHT)
 
 # for update_pos
 kernel = np.array([
@@ -45,7 +45,7 @@ def main ():
         ])
 
     while run:
-
+        clock.tick(FPS)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
