@@ -1,13 +1,17 @@
 import pygame
 import os
 from scipy.signal import convolve2d
+import numpy as np
 
 pygame.font.init()
 pygame.mixer.init()
 
 WIDTH, HEIGHT = 900,500
 WIN = pygame.display.set_mode((WIDTH,HEIGHT)) #setting bounds of game window
-pygame.display.set_caption(" Name Pending ") #name of the game
+pygame.display.set_caption("Groots in Paris ") #name of the game
+
+FPS = 30
+BORDER = pygame.Rect(WIDTH, HEIGHT)
 
 # for update_pos
 kernel = np.array([
@@ -32,7 +36,8 @@ def update_screen(surface, current, size):
 
 def main ():
     run = True
-
+    clock = pygame.time.Clock()
+    
     # temporary starting input
     current = np.array([
         [0,0,0,0,0,0,0,0,0],
