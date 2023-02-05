@@ -20,8 +20,13 @@ kernel = np.array([
     [1,1,1]
     ])
 
-# window to contain conway part
-# conway_window = pygame.
+class Conway():
+
+    def __init__(self):
+
+        # rectangle to contain conway part
+        self.dim = self.width, self.width = 20, 10
+        self.rect = pygame.Rect(self.dim)
 
 def update_pos(current):
 
@@ -37,7 +42,7 @@ def update_screen(surface, current, size):
 def main ():
     run = True
     clock = pygame.time.Clock()
-    
+
     # temporary starting input
     current = np.array([
         [0,0,0,0,0,0,0,0,0],
