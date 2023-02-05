@@ -12,7 +12,21 @@ WIN = pygame.display.set_mode((WIDTH,HEIGHT)) #setting bounds of game window
 pygame.display.set_caption(" Groots in Paris ") #name of the game
 
 FPS = 30
-BORDER = pygame.Rect(WIDTH, HEIGHT)
+#BORDER = pygame.Rect(WIDTH, HEIGHT)
+goButtonPng = pygame.image.load("goButton.png").convert_alpha()
+stopButtonPng = pygame.image.load("stopButton.png").convert_alpha()
+
+Title_GameName = pygame.image.load(
+    os.path.join('ASSETS', 'Title.png')
+)
+Title_Background = pygame.image.load(
+    os.path.join('ASSETS', 'eiffel tower.png')
+)
+Title_Background = pygame.transform.scale(Title_Background, (900, 500))
+
+Title_Groot_Baguette = pygame.image.load(
+    os.path.join('ASSETS', 'Groot_holding_baguette.png')
+)
 
 # for update_pos
 kernel = np.array([
@@ -44,6 +58,13 @@ def pausedWindow():
         print("go")
     pygame.display.update()
 
+def draw_window():
+    WIN.blit(Title_Background, (0,0))
+    WIN.blit(Title_GameName, (157,10))
+    WIN.blit(Title_Groot_Baguette, (500,200))
+    WIN.blit(pygame.transform.flip(Title_Groot_Baguette,1,0), (-225,200))
+    pygame.display.update()
+
 def main ():
     run = True
     clock = pygame.time.Clock()
@@ -62,7 +83,10 @@ def main ():
         ])
 
     while run:
-
+        clock.tick(FPS)
+        
+        #pausedWindow()
+        draw_window()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
