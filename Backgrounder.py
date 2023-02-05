@@ -2,17 +2,20 @@ import pygame
 import os
 from scipy.signal import convolve2d
 import numpy as np
-import button
 
 pygame.font.init()
 pygame.mixer.init()
 
 WIDTH, HEIGHT = 900,500
 WIN = pygame.display.set_mode((WIDTH,HEIGHT)) #setting bounds of game window
-pygame.display.set_caption(" Groots in Paris ") #name of the game
+pygame.display.set_caption("Groots in Paris ") #name of the game
 
-goButtonPng = pygame.image.load("goButton.png").convert_alpha()
-stopButtonPng = pygame.image.load("stopButton.png").convert_alpha()
+FPS = 30
+#BORDER = pygame.Rect(WIDTH, HEIGHT)
+
+Background_Image = pygame.image.load(
+    os.path.join('ASSETS', 'Title.png')
+)
 
 # for update_pos
 kernel = np.array([
@@ -21,13 +24,9 @@ kernel = np.array([
     [1,1,1]
     ])
 
-class Conway():
-
-    def __init__(self):
-
-        # rectangle to contain conway part
-        self.dim = self.width, self.width = 20, 10
-        self.rect = pygame.Rect(self.dim)
+def draw_window():
+    WIN.blit(Background_Image, (0,0))
+    pygame.display.update()
 
 def update_pos(current):
 
@@ -36,18 +35,10 @@ def update_pos(current):
 
     return (((current == 0)*convolve2d(current, kernel, 'same') == 3) + died != 0)*1
 
-goButton = button.Button(750, 25, goButtonPng, 0.8)
-stopButton = button.Button(750,75, stopButtonPng, 0.2)
-
-def pausedWindow():
-    if goButton.draw(WIN):
-        print("go")
-    pygame.display.update()
-
 def main ():
     run = True
     clock = pygame.time.Clock()
-
+    
     # temporary starting input
     current = np.array([
         [0,0,0,0,0,0,0,0,0],
@@ -62,11 +53,12 @@ def main ():
         ])
 
     while run:
-        pausedWindow()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
 
+        draw_window()
         # current = update_pos(current)
 
     pygame.quit()
