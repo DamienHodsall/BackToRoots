@@ -16,12 +16,19 @@ kernel = np.array([
     [1,1,1]
     ])
 
+# window to contain conway part
+# conway_window = pygame.
+
 def update_pos(current):
 
     died = current*convolve2d(current, kernel, 'same')
     died[(died < 2) + (died > 3)] = 0
 
     return (((current == 0)*convolve2d(current, kernel, 'same') == 3) + died != 0)*1
+
+def update_screen(surface, current, size):
+
+    pass
 
 def main ():
     run = True
@@ -45,7 +52,11 @@ def main ():
             if event.type == pygame.QUIT:
                 run = False
 
+        # this is the actual updating part
         # current = update_pos(current)
+
+        # this is important. nothing will change without this
+        # surface.update()
 
     pygame.quit()
 
