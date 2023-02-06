@@ -1,5 +1,3 @@
-#!/bin/python3
-
 # standard imports
 import pygame
 import os
@@ -9,14 +7,15 @@ import numpy as np
 # custom imports
 import button
 from Conway import Conway
-pygame.font.init()
 
+pygame.font.init()
 pygame.mixer.init()
 
 DIM = WIDTH, HEIGHT = 900,500
 # these should go in main
 WIN = pygame.display.set_mode((WIDTH,HEIGHT)) #setting bounds of game window
 pygame.display.set_caption(" Groots in Paris ") #name of the game
+STATE = 'Title' # one of 'Title' 'Editor' 'Conway'
 
 FPS = 30
 #BORDER = pygame.Rect(WIDTH, HEIGHT)
@@ -83,7 +82,7 @@ def main ():
         #pausedWindow()
         draw_window()
 
-        if start_automation:
+        if STATE == 'Conway':
 
             conway.update_pos()
             conway.draw(WIN)
