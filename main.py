@@ -72,8 +72,9 @@ def pausedWindow():
     pygame.display.update()
 
 def goWindow():
-
     WIN.blit(Game_Background, (0,0))
+
+    pygame.display.update()
     
 
 def Title_window():
@@ -119,8 +120,8 @@ def main ():
         #Title_window()
         '''
 
-        #pausedWindow()
-        Title_window()
+        goWindow()
+        #Title_window()
         if startClicked == True:
             pausedWindow()
 
@@ -128,7 +129,7 @@ def main ():
 
             conway.update_pos()
             conway.draw(WIN)
-        '''
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
