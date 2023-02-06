@@ -2,13 +2,17 @@
 class for automated gameplay
 """
 
+import pygame
+from scipy.signal import convolve2d
+import numpy as np
+
 class Conway():
 
     def __init__(self, start_pos, width = 20, height = 10):
 
         self.background = pygame.image.load('ASSETS/conway-background.png').convert()
         self.cell = pygame.image.load('ASSETS/cell.png').convert()
-        self.dim = self.width, self.height = width, height
+        self.dim = self.height, self.width = height, width
         self.array = np.zeros(self.dim) # cells of playing area (dirt_background - green_top_area)
         self.init(start_pos)
         self.kernel = np.array([
@@ -25,7 +29,7 @@ class Conway():
         # puts edited position into automated array
         self.array[:start_pos.shape[0], :start_pos.shape[1]] = start_pos
 
-    def draw(self, background):
+    def draw(self, background, dim):
         '''
         puts Grid-Fill on all True postions in self.array and draws onto background
         '''
@@ -34,13 +38,13 @@ class Conway():
 
         for row, col in np.ndindex(self.array.shape):
 
-            if self.array[col, row]:
+            if self.array[row, col]:
 
-                self.background.blit(source = self.cell, dest = (16*col, 16*row))
+                self.background.blit(source = self.cell, dest = (16*row, 16*col))
 
-        self.background = pygame.transform.scale(self.background, DIM)
+        self.background = pygame.transform.scale(self.background, dim)
 
-        background.blit(self.background, dest = (0, 20))
+        background.blit(self.background, (0, 20))
 
     def update_pos(self):
         '''
@@ -51,3 +55,4 @@ class Conway():
         died[(died < 2) + (died > 3)] = 0
 
         self.array = (((self.array == 0)*convolve2d(self.array, self.kernel, 'same') == 3) + died != 0)*1
+        # print(self.array)

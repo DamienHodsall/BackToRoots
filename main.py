@@ -7,7 +7,7 @@ from pygame import mixer
 
 # custom imports
 import button
-# from Conway import Conway
+from Conway import Conway
 
 pygame.font.init()
 pygame.mixer.init()
@@ -19,8 +19,8 @@ pygame.display.set_caption(" Groots in Paris ") #name of the game
 STATE = 'Title' # one of 'Title' 'Editor' 'Conway'
 
 Title_Screen_Music = mixer.music.load(
-    os.path.join('ASSETS', 'Groot-In-Paris-Instrumental.mp3')
-    )
+        os.path.join('ASSETS', 'Groot-In-Paris-Instrumental.mp3')
+        )
 
 FPS = 30
 #BORDER = pygame.Rect(WIDTH, HEIGHT)
@@ -66,9 +66,14 @@ def Title_window():
     WIN.blit(pygame.transform.flip(Title_Groot_Baguette,1,0), (-225,200))
     if startButton.draw(WIN):
         startClicked = True
-        
+
     pygame.display.update()
-    
+
+def conway_function():
+
+    conway.update_pos()
+    conway.draw(WIN, DIM)
+
 
 def main ():
     #Title_Screen_Music.play()
@@ -98,14 +103,14 @@ def main ():
         clock.tick(FPS)
 
         #pausedWindow()
-        Title_window()
-        if startClicked == True:
-            pausedWindow()
+        #Title_window()
+        #if startClicked == True:
+        #    pausedWindow()
 
         if STATE == 'Conway':
 
+            conway.draw(WIN, DIM)
             conway.update_pos()
-            conway.draw(WIN)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
