@@ -95,7 +95,7 @@ def Title_window():
 def main ():
     STATE = 'title'
     #Title_Screen_Music.play()
-    #mixer.music.play()
+    mixer.music.play()
     #pygame.time.wait(5000)
     run = True
     clock = pygame.time.Clock()
@@ -113,10 +113,10 @@ def main ():
         [0,0,0,0,0,0,0,0,0],
         ])
 
-    temp1 = np.array([
-        [0,0,0,0],
-        [1,1,1,1],
-        [0,0,0,0]
+    temp = np.array([
+        [0,0,1,0],
+        [0,0,0,1],
+        [0,1,1,1]
         ])
 
     conway = Conway(temp.T)
