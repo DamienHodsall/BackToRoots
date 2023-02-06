@@ -24,8 +24,8 @@ Title_Screen_Music = mixer.music.load(
 
 FPS = 30
 #BORDER = pygame.Rect(WIDTH, HEIGHT)
-goButtonPng = pygame.image.load("goButton.png").convert_alpha()
-stopButtonPng = pygame.image.load("stopButton.png").convert_alpha()
+goButtonPng = pygame.image.load("ASSETS/goButton.png").convert_alpha()
+stopButtonPng = pygame.image.load("ASSETS/stopButton.png").convert_alpha()
 
 Title_GameName = pygame.image.load(
         os.path.join('ASSETS', 'Title.png')
