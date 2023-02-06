@@ -3,6 +3,7 @@ import pygame
 import os
 from scipy.signal import convolve2d
 import numpy as np
+from pygame import mixer
 
 # custom imports
 import button
@@ -16,6 +17,10 @@ DIM = WIDTH, HEIGHT = 900,500
 WIN = pygame.display.set_mode((WIDTH,HEIGHT)) #setting bounds of game window
 pygame.display.set_caption(" Groots in Paris ") #name of the game
 STATE = 'Title' # one of 'Title' 'Editor' 'Conway'
+
+Title_Screen_Music = mixer.music.load(
+    os.path.join('ASSETS', 'Groot-In-Paris-Instrumental.mp3')
+    )
 
 FPS = 30
 #BORDER = pygame.Rect(WIDTH, HEIGHT)
@@ -50,7 +55,7 @@ def pausedWindow():
         print("go")
     pygame.display.update()
 
-def draw_window():
+def Title_window():
     WIN.blit(Title_Background, (0,0))
     WIN.blit(Title_GameName, (157,10))
     WIN.blit(Title_Groot_Baguette, (500,200))
@@ -58,6 +63,9 @@ def draw_window():
     pygame.display.update()
 
 def main ():
+    #Title_Screen_Music.play()
+    mixer.music.play()
+    #pygame.time.wait(5000)
     run = True
     clock = pygame.time.Clock()
 
@@ -80,7 +88,7 @@ def main ():
         clock.tick(FPS)
 
         #pausedWindow()
-        draw_window()
+        Title_window()
 
         if STATE == 'Conway':
 
