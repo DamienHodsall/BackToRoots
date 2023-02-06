@@ -1,13 +1,20 @@
+#!/bin/python3
+
+# standard imports
 import pygame
 import os
 from scipy.signal import convolve2d
 import numpy as np
-import button
 
+# custom imports
+import button
+from Conway import Conway
 pygame.font.init()
+
 pygame.mixer.init()
 
-WIDTH, HEIGHT = 900,500
+DIM = WIDTH, HEIGHT = 900,500
+# these should go in main
 WIN = pygame.display.set_mode((WIDTH,HEIGHT)) #setting bounds of game window
 pygame.display.set_caption(" Groots in Paris ") #name of the game
 
@@ -17,38 +24,24 @@ goButtonPng = pygame.image.load("goButton.png").convert_alpha()
 stopButtonPng = pygame.image.load("stopButton.png").convert_alpha()
 
 Title_GameName = pygame.image.load(
-    os.path.join('ASSETS', 'Title.png')
-)
+        os.path.join('ASSETS', 'Title.png')
+        )
 Title_Background = pygame.image.load(
-    os.path.join('ASSETS', 'eiffel tower.png')
-)
+        os.path.join('ASSETS', 'eiffel tower.png')
+        )
 Title_Background = pygame.transform.scale(Title_Background, (900, 500))
 
 Title_Groot_Baguette = pygame.image.load(
-    os.path.join('ASSETS', 'Groot_holding_baguette.png')
-)
+        os.path.join('ASSETS', 'Groot_holding_baguette.png')
+        )
 
-# for update_pos
-kernel = np.array([
-    [1,1,1],
-    [1,0,1],
-    [1,1,1]
-    ])
+# os.path.join might not be necessary? relative path might be fine
 
-class Conway():
+'''
+cells blit onto conway then conway scales and blits onto background...?
+'''
 
-    def __init__(self):
-
-        # rectangle to contain conway part
-        self.dim = self.width, self.width = 20, 10
-        self.rect = pygame.Rect(self.dim)
-
-def update_pos(current):
-
-    died = current*convolve2d(current, kernel, 'same')
-    died[(died < 2) + (died > 3)] = 0
-
-    return (((current == 0)*convolve2d(current, kernel, 'same') == 3) + died != 0)*1
+# conway = Conway(start_pos)
 
 goButton = button.Button(750, 25, goButtonPng, 0.8)
 stopButton = button.Button(750,75, stopButtonPng, 0.2)
@@ -70,6 +63,7 @@ def main ():
     clock = pygame.time.Clock()
 
     # temporary starting input
+    '''
     current = np.array([
         [0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0],
@@ -81,17 +75,22 @@ def main ():
         [0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0],
         ])
+    '''
 
     while run:
         clock.tick(FPS)
-        
+
         #pausedWindow()
         draw_window()
+
+        if start_automation:
+
+            conway.update_pos()
+            conway.draw(WIN)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-
-        # current = update_pos(current)
 
     pygame.quit()
 
