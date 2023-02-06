@@ -1,4 +1,4 @@
-#!/bin/python3
+
 
 # standard imports
 import pygame
@@ -8,7 +8,8 @@ import numpy as np
 
 # custom imports
 import button
-from Conway import Conway
+
+#from Conway import Conway
 from pygame import mixer
 
 pygame.font.init()
@@ -41,6 +42,10 @@ Title_Groot_Baguette = pygame.image.load(
         os.path.join('ASSETS', 'Groot_holding_baguette.png')
         )
 
+Game_Background = pygame.image.load(
+        os.path.join('ASSETS', 'Dirt-Background.png')
+)
+
 # os.path.join might not be necessary? relative path might be fine
 
 '''
@@ -53,9 +58,18 @@ goButton = button.Button(750, 25, goButtonPng, 0.8)
 stopButton = button.Button(750,75, stopButtonPng, 0.2)
 
 def pausedWindow():
+
+    WIN.blit(Game_Background, (0,0))
     if goButton.draw(WIN):
         print("go")
+        switcher = True
+    
     pygame.display.update()
+
+def goWindow():
+
+    WIN.blit(Game_Background, (0,0))
+    
 
 def Title_window():
     WIN.blit(Title_Background, (0,0))
@@ -66,11 +80,11 @@ def Title_window():
 
 def main ():
     #Title_Screen_Music.play()
-    mixer.music.play()
+    #mixer.music.play()
     #pygame.time.wait(5000)
     run = True
     clock = pygame.time.Clock()
-
+    
     # temporary starting input
     '''
     current = np.array([
@@ -88,15 +102,22 @@ def main ():
 
     while run:
         clock.tick(FPS)
+        '''
+        if switcher == True:
+            GoWindow()
+        if switcher == False:
+            pausedWindow()
+        #Title_window()
+        '''
 
         #pausedWindow()
-        Title_window()
-
+        goWindow()
+        '''
         if start_automation:
 
             conway.update_pos()
             conway.draw(WIN)
-
+        '''
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False

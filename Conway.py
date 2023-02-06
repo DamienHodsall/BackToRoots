@@ -1,7 +1,9 @@
 """
 class for automated gameplay
 """
-
+import pygame
+import numpy as np
+from scipy import convolve2d
 class Conway():
 
     def __init__(self, width = 20, height = 10, start_pos):
