@@ -70,8 +70,7 @@ def main ():
     clock = pygame.time.Clock()
 
     # temporary starting input
-    '''
-    current = np.array([
+    temp = np.array([
         [0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0],
@@ -82,7 +81,10 @@ def main ():
         [0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0],
         ])
-    '''
+
+    STATE = 'Conway'
+
+    conway = Conway(temp)
 
     while run:
         clock.tick(FPS)

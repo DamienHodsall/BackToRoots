@@ -4,7 +4,7 @@ class for automated gameplay
 
 class Conway():
 
-    def __init__(self, width = 20, height = 10, start_pos):
+    def __init__(self, start_pos, width = 20, height = 10):
 
         self.background = pygame.image.load('ASSETS/conway-background.png').convert()
         self.cell = pygame.image.load('ASSETS/cell.png').convert()
