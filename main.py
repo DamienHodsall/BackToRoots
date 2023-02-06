@@ -1,6 +1,4 @@
-
-
-# standard imports
+#standard imports
 import pygame
 import os
 from scipy.signal import convolve2d
@@ -9,12 +7,13 @@ from pygame import mixer
 
 # custom imports
 import button
-
 #from Conway import Conway
 from pygame import mixer
 
 pygame.font.init()
 pygame.mixer.init()
+
+black = (0,0,0,128)
 
 DIM = WIDTH, HEIGHT = 900,500
 # these should go in main
