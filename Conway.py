@@ -1,5 +1,5 @@
 """
-class for automated gameplay
+class for conway part of the game
 """
 
 import pygame
@@ -26,6 +26,8 @@ class Conway():
         can also be used for restart simulation?
         '''
 
+        self.array = np.zeros(self.dim)
+
         # puts edited position into automated array
         self.array[:start_pos.shape[0], :start_pos.shape[1]] = start_pos
 
@@ -42,7 +44,7 @@ class Conway():
 
                 self.background.blit(source = self.cell, dest = (8*row, 8*col))
 
-        self.background = pygame.transform.scale(self.background, dim)
+        self.background = pygame.transform.scale(self.background, (900,450))
 
         background.blit(self.background, (0, 112))
 
