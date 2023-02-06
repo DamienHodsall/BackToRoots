@@ -1,4 +1,4 @@
-#standard imports
+# standard imports
 import pygame
 import os
 from scipy.signal import convolve2d
@@ -26,6 +26,7 @@ FPS = 30
 goButtonPng = pygame.image.load("ASSETS/goButton.png").convert_alpha()
 stopButtonPng = pygame.image.load("ASSETS/stopButton.png").convert_alpha()
 startButtonPng = pygame.image.load("ASSETS/startButton.png").convert_alpha()
+dirtBackground = pygame.image.load("ASSETS/Dirt-Background.png").convert_alpha()
 
 
 Title_GameName = pygame.image.load(
@@ -40,18 +41,13 @@ Title_Groot_Baguette = pygame.image.load(
         os.path.join('ASSETS', 'Groot_holding_baguette.png')
         )
 
-Game_Background = pygame.image.load(
-        os.path.join('ASSETS', 'Dirt-Background.png')
-        )
-
-goButton = button.Button(750, 25, goButtonPng, 0.8)
+goButton = button.Button(750, 10, goButtonPng, 0.8)
 stopButton = button.Button(750,75, stopButtonPng, 0.2)
-startButton = button.Button(450, 250, startButtonPng, 0.8)
+startButton = button.Button(WIDTH/2 - 230/2, HEIGHT / 2 - 126/2, startButtonPng, 0.8)
 startClicked = False
 
 def pausedWindow():
-
-    WIN.blit(Game_Background, (0,0))
+    WIN.blit(dirtBackground, (0,0))
     if goButton.draw(WIN):
         return "conway"
     else:
@@ -68,8 +64,9 @@ def Title_window():
         return "title"
 
 def main ():
+    STATE = 'title'
     #Title_Screen_Music.play()
-    #mixer.music.play()
+    mixer.music.play()
     #pygame.time.wait(5000)
     run = True
     clock = pygame.time.Clock()
@@ -98,9 +95,7 @@ def main ():
 
     while run:
         clock.tick(FPS)
-        print(STATE)
 
-        #pausedWindow()
         if STATE == "title":
             STATE = Title_window()
         elif STATE == "paused":
@@ -115,6 +110,7 @@ def main ():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+        pygame.display.update()
 
     pygame.quit()
 
