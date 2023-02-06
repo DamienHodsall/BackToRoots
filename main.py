@@ -7,7 +7,7 @@ from pygame import mixer
 
 # custom imports
 import button
-from Conway import Conway
+# from Conway import Conway
 
 pygame.font.init()
 pygame.mixer.init()
@@ -24,8 +24,10 @@ Title_Screen_Music = mixer.music.load(
 
 FPS = 30
 #BORDER = pygame.Rect(WIDTH, HEIGHT)
-goButtonPng = pygame.image.load("goButton.png").convert_alpha()
-stopButtonPng = pygame.image.load("stopButton.png").convert_alpha()
+goButtonPng = pygame.image.load("ASSETS/goButton.png").convert_alpha()
+stopButtonPng = pygame.image.load("ASSETS/stopButton.png").convert_alpha()
+startButtonPng = pygame.image.load("ASSETS/startButton.png").convert_alpha()
+
 
 Title_GameName = pygame.image.load(
         os.path.join('ASSETS', 'Title.png')
@@ -49,6 +51,8 @@ cells blit onto conway then conway scales and blits onto background...?
 
 goButton = button.Button(750, 25, goButtonPng, 0.8)
 stopButton = button.Button(750,75, stopButtonPng, 0.2)
+startButton = button.Button(450, 250, startButtonPng, 0.8)
+startClicked = False
 
 def pausedWindow():
     if goButton.draw(WIN):
@@ -60,7 +64,11 @@ def Title_window():
     WIN.blit(Title_GameName, (157,10))
     WIN.blit(Title_Groot_Baguette, (500,200))
     WIN.blit(pygame.transform.flip(Title_Groot_Baguette,1,0), (-225,200))
+    if startButton.draw(WIN):
+        startClicked = True
+        
     pygame.display.update()
+    
 
 def main ():
     #Title_Screen_Music.play()
@@ -91,6 +99,8 @@ def main ():
 
         #pausedWindow()
         Title_window()
+        if startClicked == True:
+            pausedWindow()
 
         if STATE == 'Conway':
 
