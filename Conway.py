@@ -3,8 +3,8 @@ class for automated gameplay
 """
 
 import pygame
-from scipy.signal import convolve2d
 import numpy as np
+from scipy.signal import convolve2d
 
 class Conway():
 
@@ -12,7 +12,7 @@ class Conway():
 
         self.background = pygame.image.load('ASSETS/conway-background.png').convert()
         self.cell = pygame.image.load('ASSETS/cell.png').convert()
-        self.dim = self.height, self.width = height, width
+        self.dim = self.width, self.height = width, height
         self.array = np.zeros(self.dim) # cells of playing area (dirt_background - green_top_area)
         self.init(start_pos)
         self.kernel = np.array([
@@ -40,11 +40,11 @@ class Conway():
 
             if self.array[row, col]:
 
-                self.background.blit(source = self.cell, dest = (16*row, 16*col))
+                self.background.blit(source = self.cell, dest = (8*row, 8*col))
 
         self.background = pygame.transform.scale(self.background, dim)
 
-        background.blit(self.background, (0, 20))
+        background.blit(self.background, (0, 112))
 
     def update_pos(self):
         '''
@@ -55,4 +55,3 @@ class Conway():
         died[(died < 2) + (died > 3)] = 0
 
         self.array = (((self.array == 0)*convolve2d(self.array, self.kernel, 'same') == 3) + died != 0)*1
-        # print(self.array)
