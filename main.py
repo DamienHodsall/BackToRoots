@@ -54,7 +54,7 @@ cells blit onto conway then conway scales and blits onto background...?
 
 goButton = button.Button(750, 10, goButtonPng, 0.8)
 stopButton = button.Button(750,75, stopButtonPng, 0.2)
-startButton = button.Button(450, 250, startButtonPng, 0.8)
+startButton = button.Button(WIDTH/2 - 230/2, HEIGHT / 2 - 126/2, startButtonPng, 0.8)
 startClicked = False
 
 def pausedWindow():
