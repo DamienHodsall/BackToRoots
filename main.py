@@ -30,6 +30,7 @@ goButtonPng = pygame.image.load("ASSETS/goButton.png").convert_alpha()
 stopButtonPng = pygame.image.load("ASSETS/stopButton.png").convert_alpha()
 startButtonPng = pygame.image.load("ASSETS/startButton.png").convert_alpha()
 dirtBackground = pygame.image.load("ASSETS/Dirt-Background.png").convert_alpha()
+returnButtonPng = pygame.image.load("ASSETS/returnButton.png").convert_alpha()
 
 
 Title_GameName = pygame.image.load(
@@ -56,13 +57,17 @@ goButton = button.Button(750, 10, goButtonPng, 0.8)
 stopButton = button.Button(750,75, stopButtonPng, 0.2)
 startButton = button.Button(WIDTH/2 - 230/2, HEIGHT / 2 - 126/2, startButtonPng, 0.8)
 startClicked = False
+returnButton = button.Button(15, 10, returnButtonPng, 0.5)
 
 def pausedWindow():
     WIN.blit(dirtBackground, (0,0))
     if goButton.draw(WIN):
+        return "conway"
+    elif returnButton.draw(WIN):
         return "title"
     else:
         return "paused"
+
 
 def Title_window():
     WIN.blit(Title_Background, (0,0))
