@@ -42,14 +42,14 @@ class Conway():
 
         self.background = pygame.transform.scale(self.background, DIM)
 
-        background.blit(self.background)
+        background.blit(self.background, dest = (0, 20))
 
     def update_pos(self):
         '''
         performs the actual logic for Conwat's game of life
         '''
 
-        died = self.array*convolve2d(self.array, kernel, 'same')
+        died = self.array*convolve2d(self.array, self.kernel, 'same')
         died[(died < 2) + (died > 3)] = 0
 
-        self.array = (((self.array == 0)*convolve2d(self.array, kernel, 'same') == 3) + died != 0)*1
+        self.array = (((self.array == 0)*convolve2d(self.array, self.kernel, 'same') == 3) + died != 0)*1

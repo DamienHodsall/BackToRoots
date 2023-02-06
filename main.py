@@ -5,6 +5,7 @@ import pygame
 import os
 from scipy.signal import convolve2d
 import numpy as np
+from pygame import mixer
 
 # custom imports
 import button
@@ -13,13 +14,13 @@ import button
 from pygame import mixer
 
 pygame.font.init()
-
 pygame.mixer.init()
 
 DIM = WIDTH, HEIGHT = 900,500
 # these should go in main
 WIN = pygame.display.set_mode((WIDTH,HEIGHT)) #setting bounds of game window
 pygame.display.set_caption(" Groots in Paris ") #name of the game
+STATE = 'Title' # one of 'Title' 'Editor' 'Conway'
 
 Title_Screen_Music = mixer.music.load(
     os.path.join('ASSETS', 'Groot-In-Paris-Instrumental.mp3')
@@ -27,8 +28,10 @@ Title_Screen_Music = mixer.music.load(
 
 FPS = 30
 #BORDER = pygame.Rect(WIDTH, HEIGHT)
-goButtonPng = pygame.image.load("goButton.png").convert_alpha()
-stopButtonPng = pygame.image.load("stopButton.png").convert_alpha()
+goButtonPng = pygame.image.load("ASSETS/goButton.png").convert_alpha()
+stopButtonPng = pygame.image.load("ASSETS/stopButton.png").convert_alpha()
+startButtonPng = pygame.image.load("ASSETS/startButton.png").convert_alpha()
+
 
 Title_GameName = pygame.image.load(
         os.path.join('ASSETS', 'Title.png')
@@ -56,6 +59,8 @@ cells blit onto conway then conway scales and blits onto background...?
 
 goButton = button.Button(750, 25, goButtonPng, 0.8)
 stopButton = button.Button(750,75, stopButtonPng, 0.2)
+startButton = button.Button(450, 250, startButtonPng, 0.8)
+startClicked = False
 
 def pausedWindow():
 
@@ -76,7 +81,11 @@ def Title_window():
     WIN.blit(Title_GameName, (157,10))
     WIN.blit(Title_Groot_Baguette, (500,200))
     WIN.blit(pygame.transform.flip(Title_Groot_Baguette,1,0), (-225,200))
+    if startButton.draw(WIN):
+        startClicked = True
+        
     pygame.display.update()
+    
 
 def main ():
     #Title_Screen_Music.play()
@@ -111,9 +120,11 @@ def main ():
         '''
 
         #pausedWindow()
-        goWindow()
-        '''
-        if start_automation:
+        Title_window()
+        if startClicked == True:
+            pausedWindow()
+
+        if STATE == 'Conway':
 
             conway.update_pos()
             conway.draw(WIN)
