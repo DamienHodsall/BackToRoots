@@ -76,7 +76,6 @@ returnButton = button.Button(15, 10, returnButtonPng, 0.5)
 
 def pausedWindow():
     WIN.blit(dirtBackground, (0,0))
-    WIN.blit()
     if goButton.draw(WIN):
         return "conway"
     else:
